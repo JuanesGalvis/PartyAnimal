@@ -1,0 +1,23 @@
+{
+  "name": "pets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "excel": "node Libs/Excel_JSON.js"
+  },
+  "author": "Juan Galvis - Miguel Bedoya",
+  "license": "MIT",
+  "dependencies": {
+    "convert-excel-to-json": "1.7.0",
+    "cors": "2.8.5",
+    "dotenv": "16.0.3",
+    "express": "4.18.1",
+    "mongodb": "4.10.0",
+    "xml-js": "1.6.11"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.20"
+  }
+}
