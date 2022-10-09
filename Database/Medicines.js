@@ -9,32 +9,31 @@ class Medicines extends MongoDB {
 
     async getMedicines(IdPet) {
 
+      try {
+        
         let pipeline = [
           {
             '$match': {
               '_id': new ObjectId(IdPet)
             }
-          },
-          {
-            '$lookup': {
-              'from': 'Mascotas', 
-              'localField': 'Mascotas', 
-              'foreignField': '_id', 
-              'as': 'Mascotas'
-            }
           }, {
             '$lookup': {
               'from': 'Medicamentos', 
-              'localField': 'Mascotas.Medicamentos', 
+              'localField': 'Medicamentos', 
               'foreignField': '_id', 
               'as': 'Medicamentos'
             }
           }
         ]
-
+  
         return this.connect().then((db) => {
-          return db.collection('Mascotas').aggregate(pipeline).toArray();
+            return db.collection('Mascotas').aggregate(pipeline).toArray();
         });
+
+      } catch (error) {
+        return undefined;
+      }
+
       }
 
 }

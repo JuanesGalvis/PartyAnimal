@@ -4,12 +4,15 @@ const { ObjectId } = require('mongodb');
 function ConvertExcelToJSON() {
     
     const result = excelToJson({
-        sourceFile: './Data/DataOriginal.xlsx'
+        sourceFile: './Data/DataOriginal.xlsx',
+        header: {
+            rows: 1
+        }
     });
     
     let { Clientes, Mascotas, Medicamentos } = result;
-    
-    Medicamentos.shift();
+    let AuxClientes = [...Clientes];
+
     Medicamentos = Medicamentos.map((item) => {
         return {
             _id: ObjectId(),
@@ -20,7 +23,17 @@ function ConvertExcelToJSON() {
         }
     })
     
-    Mascotas.shift();
+    Clientes = Clientes.map((item) => {
+        return {
+            _id: ObjectId(),
+            "Cedula": item.A,
+            "Nombres": item.B,
+            "Apellidos": item.C,
+            "Direccion": item.D,
+            "Telefono": item.E
+        }
+    })
+
     Mascotas = Mascotas.map((item) => {
         return {
             _id: ObjectId(),
@@ -33,28 +46,18 @@ function ConvertExcelToJSON() {
                 if (String(item.F).split(".").includes(String(medicamento.Id))) {
                     return medicamento;
                 }
-            }).map((item) => item._id )
-        }
-    })
-    
-    Clientes.shift();
-    Clientes = Clientes.map((item) => {
-        return {
-            _id: ObjectId(),
-            "Cedula": item.A,
-            "Nombres": item.B,
-            "Apellidos": item.C,
-            "Direccion": item.D,
-            "Telefono": item.E,
-            "Mascotas": Mascotas.filter((mascota) => {
-                if (String(item.F).split(".").includes(String(mascota.Id))) {
-                    return mascota;
-                }
-            }).map((item) => item._id )
+            }).map((item) => item._id ),
+            "Id_Cliente": Clientes[AuxClientes.findIndex((itemClient) => String(itemClient.F).includes(item.A))]._id
         }
     })
 
+    console.log(Clientes);
+    console.log(Mascotas);
+    console.log(Medicamentos);
+
     return { Clientes, Mascotas, Medicamentos }
 }
+
+ConvertExcelToJSON();
 
 module.exports = { ConvertExcelToJSON };

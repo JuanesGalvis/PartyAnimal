@@ -9,31 +9,12 @@ class Pets extends MongoDB {
 
     async getPets(IdOwner) {
 
-        let pipeline = [
-            {
-              '$match': {
-                '_id': new ObjectId(IdOwner)
-              }
-            }, {
-              '$lookup': {
-                'from': 'Mascotas', 
-                'localField': 'Mascotas', 
-                'foreignField': '_id', 
-                'as': 'Mascotas'
-              }
-            }, {
-              '$project': {
-                'Mascotas': 1
-              }
-            }, {
-              $project: {
-                  'Mascotas.Medicamentos': 0
-              }
-            }
-          ]
-
         return this.connect().then((db) => {
-          return db.collection('Clientes').aggregate(pipeline).toArray();
+          try {
+            return db.collection('Mascotas').find({ Id_Cliente: ObjectId(IdOwner) }).toArray();
+          } catch (err) {
+            return undefined;
+          }
         });
       }
 

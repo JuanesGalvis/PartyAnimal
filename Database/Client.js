@@ -5,45 +5,37 @@ class Clients extends MongoDB {
 
     constructor() {
         super();
-    }
-
-    async getAllClients() {
+      }
+      
+      async getAllClients() {
         return this.connect().then((db) => {
           return db.collection('Clientes').find().toArray();
         });
       }
+      
+      async getReport(IdClient) {
+      try {
+        let pipeline = [
+          {
+            '$match': {
+              'Id_Cliente': new ObjectId(IdClient)
+            }
+          }, {
+            '$lookup': {
+              'from': 'Medicamentos', 
+              'localField': 'Medicamentos', 
+              'foreignField': '_id', 
+              'as': 'Medicamentos'
+            }
+          }
+        ]
 
-    async getReport(IdClient) {
-      let pipeline = [
-        {
-          '$match': {
-            '_id': new ObjectId(IdClient)
-          }
-        },
-        {
-          '$lookup': {
-            'from': 'Mascotas', 
-            'localField': 'Mascotas', 
-            'foreignField': '_id', 
-            'as': 'Mascotas'
-          }
-        }, {
-          '$lookup': {
-            'from': 'Medicamentos', 
-            'localField': 'Mascotas.Medicamentos', 
-            'foreignField': '_id', 
-            'as': 'Medicamentos'
-          }
-        }, {
-          $project: {
-              'Mascotas.Medicamentos': 0
-          }
-        }
-      ]
-
-      return this.connect().then((db) => {
-        return db.collection('Clientes').aggregate(pipeline).toArray();
-      });
+        return this.connect().then((db) => {
+            return db.collection('Mascotas').aggregate(pipeline).toArray();
+          });
+      } catch (error) {
+        return undefined;
+      }
     }
 }
 

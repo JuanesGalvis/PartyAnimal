@@ -7,17 +7,20 @@ App.use(CORS());
 // Variables de entorno
 require('dotenv').config();
 
+const { ResponseAPI } = require('./Middleware/Response');
+
 // Utilizar JSON en la API
 App.use(express.json());
 
-App.use(require('./Controller/Admin.controller'));
-App.use(require('./Controller/Customers.controller'));
-App.use(require('./Controller/Pets.controller'));
-App.use(require('./Controller/Medicines.controller'));
+App.use(require('./Routes/Admin.controller'));
+App.use(require('./Routes/Customers.controller'));
+App.use(require('./Routes/Pets.controller'));
+App.use(require('./Routes/Medicines.controller'));
+App.use(require('./Middleware/Response'))
 
 // Ruta inicial o de bienvenida
 App.get('/', (req, res) => {
-    res.send("BIENVENIDOS AL BACKEND");
+    res.send("🐶 PARTY ANIMAL 😺");
 })
 
 // Puerto a escuchar
