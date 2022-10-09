@@ -51,13 +51,7 @@ function ConvertExcelToJSON() {
         }
     })
 
-    console.log(Clientes);
-    console.log(Mascotas);
-    console.log(Medicamentos);
-
     return { Clientes, Mascotas, Medicamentos }
 }
-
-ConvertExcelToJSON();
 
 module.exports = { ConvertExcelToJSON };
