@@ -7,10 +7,10 @@ const MedicinesClient = new Client();
 /** CREATE MEDICINE */
 MedicinesRouter.post('/new_medicine', async (req, res, next) => {
 
-    // let result = await MedicinesClient;
-    // req.result = result;
-    // req.message = "INFO DE TODOS LOS USUARIOS"
-    // next();
+    let result = await MedicinesClient.createMedicine(req.body);
+    req.result = result;
+    req.message = "MEDICINA CREADA EXITOSAMENTE"
+    next();
 })
 
 /** READ ALL MEDICINES IN GENERAL */
@@ -29,35 +29,26 @@ MedicinesRouter.get('/medicines/:idPet', async (req, res, next) => {
     let result = await MedicinesClient.getMedicines(req.params.idPet)
 
     req.result = result;
-    req.message = "INFO DE TODOS LOS MEDICAMENTOS"
+    req.message = "INFO DE TODOS LOS MEDICAMENTOS DE UNA MASCOTA"
     next();
-})
-
-/** READ ONE MEDICINE */
-MedicinesRouter.get('/medicines/:idPet/:idMedicine', async (req, res, next) => {
-
-    // let result = await MedicinesClient;
-    // req.result = result;
-    // req.message = "INFO DE TODOS LOS USUARIOS"
-    // next();
 })
 
 /** UPDATE MEDICINE */
 MedicinesRouter.put('/medicine/:id', async (req, res, next) => {
 
-    // let result = await MedicinesClient;
-    // req.result = result;
-    // req.message = "INFO DE TODOS LOS USUARIOS"
-    // next();
+    let result = await MedicinesClient.updateMedicine(req.params.id, req.body);
+    req.result = result;
+    req.message = "MEDICINA ACTUALIZADA EXITOSAMENTE"
+    next();
 })
 
 /** DELETE CLIENT */
 MedicinesRouter.delete('/medicine/:id', async (req, res, next) => {
 
-    // let result = await MedicinesClient;
-    // req.result = result;
-    // req.message = "INFO DE TODOS LOS USUARIOS"
-    // next();
+    let result = await MedicinesClient.deletePet(req.params.id);
+    req.result = result;
+    req.message = "MEDICINA ELIMINADA EXITOSAMENTE"
+    next();
 })
 
 module.exports = MedicinesRouter;

@@ -7,6 +7,15 @@ class Medicines extends MongoDB {
     super();
   }
 
+  /** C */
+  async createMedicine(data) {
+
+    return this.connect().then((db) => {
+      return db.collection('Medicamentos').insertOne(data);
+    });
+  }
+
+  /** R - ALL ONE PET */
   async getMedicines(IdPet) {
 
     try {
@@ -40,6 +49,22 @@ class Medicines extends MongoDB {
 
   }
 
+  /** U */
+  async updateMedicine(Id, data) {
+
+    return this.connect().then((db) => {
+      return db.collection('Medicamentos').updateOne({_id: ObjectId(Id)}, {$set: {...data}});
+    });
+  }
+
+  /** D */
+  async deletePet(Id) {
+    return this.connect().then((db) => {
+      return db.collection('Medicamentos').deleteOne({_id: ObjectId(Id)});
+    });
+  }
+
+  /** R - ALL MEDICINES */
   async getAllMedicines() {
     return this.connect().then((db) => {
       return db.collection('Medicamentos').find().toArray();

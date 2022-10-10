@@ -38,6 +38,10 @@ class Clients extends MongoDB {
     /** D */
     async deleteClient(Id) {
       return this.connect().then((db) => {
+
+        /** Eliminar mascotas del cliente eliminado */
+        db.collection('Mascotas').deleteMany({Id_Cliente: ObjectId(Id) })
+
         return db.collection('Clientes').deleteOne({_id: ObjectId(Id)});
       });
     }
