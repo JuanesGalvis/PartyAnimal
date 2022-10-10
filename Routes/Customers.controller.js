@@ -2,6 +2,7 @@ const express = require('express');
 const CustomersRouter = express.Router();
 
 const { json2xml } = require('xml-js');
+const { GenerateHTML } = require('../Lib/SaxonJS');
 
 const Client = require('../Database/Client');
 const CustomerClient = new Client();
@@ -62,7 +63,7 @@ CustomersRouter.get('/report/:idClient', async (req, res) => {
             message: "OH NO 404 😂"
         });
     } else {
-        const resultXML = json2xml(JSON.stringify(resultJSON), { compact: true, spaces: 4 });
+        let XML = json2xml(JSON.stringify(resultJSON), { compact: true, spaces: 4 });
     
         let i = 0;
 
@@ -77,8 +78,8 @@ CustomersRouter.get('/report/:idClient', async (req, res) => {
 
         XML = XML+"</Reporte>"
 
-        res.header("Content-Type", "application/xml");
-        res.status(200).send(resultXML);
+        let HTML = await GenerateHTML(XML, 'Client');
+        res.status(200).send(String(HTML));
     }
 })
 
@@ -100,8 +101,8 @@ CustomersRouter.get('/report_all', async (req, res) => {
 
     XML = XML+"</Reporte>"
 
-    res.header("Content-Type", "application/xml");
-    res.status(200).send(XML);
+    let HTML = await GenerateHTML(XML, 'General');
+    res.status(200).send(String(HTML));
 })
 
 module.exports = CustomersRouter;

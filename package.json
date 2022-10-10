@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "excel": "node Libs/Excel_JSON.js"
+    "dev": "nodemon index.js"
   },
   "author": "Juan Galvis - Miguel Bedoya",
   "license": "MIT",
@@ -15,6 +14,7 @@
     "dotenv": "16.0.3",
     "express": "4.18.1",
     "mongodb": "4.10.0",
+    "saxon-js": "^2.5.0",
     "xml-js": "1.6.11"
   },
   "devDependencies": {
