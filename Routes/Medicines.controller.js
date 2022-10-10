@@ -45,7 +45,7 @@ MedicinesRouter.put('/medicine/:id', async (req, res, next) => {
 /** DELETE MEDICINE */
 MedicinesRouter.delete('/medicine/:id', async (req, res, next) => {
 
-    let result = await MedicinesClient.deletePet(req.params.id);
+    let result = await MedicinesClient.deleteMedicine(req.params.id);
     req.result = result;
     req.message = "MEDICINA ELIMINADA EXITOSAMENTE"
     next();

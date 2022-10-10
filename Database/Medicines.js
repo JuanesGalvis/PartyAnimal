@@ -58,8 +58,22 @@ class Medicines extends MongoDB {
   }
 
   /** D */
-  async deletePet(Id) {
-    return this.connect().then((db) => {
+  async deleteMedicine(Id) {
+    return this.connect().then(async (db) => {
+
+      let pipeline = [
+        {
+          '$match': {
+            'Medicamentos': new ObjectId(Id)
+          }
+        }
+      ]
+
+      let PetsWithMedicine = await db.collection('Mascotas').aggregate(pipeline).toArray();
+      PetsWithMedicine.forEach(async (item) => {
+        await db.collection('Mascotas').updateOne({_id: ObjectId(item._id)}, { $pull: { 'Medicamentos': ObjectId(Id) }});
+      })
+
       return db.collection('Medicamentos').deleteOne({_id: ObjectId(Id)});
     });
   }
