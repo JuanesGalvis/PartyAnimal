@@ -38,6 +38,8 @@ class MongoDB {
   async dataExcel(data, collection) {
 
     return this.connect().then((db) => {
+
+      db.dropCollection(collection);
       return db.collection(collection).insertMany([...data]);
     });
 
