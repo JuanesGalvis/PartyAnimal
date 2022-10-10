@@ -64,6 +64,19 @@ CustomersRouter.get('/report/:idClient', async (req, res) => {
     } else {
         const resultXML = json2xml(JSON.stringify(resultJSON), { compact: true, spaces: 4 });
     
+        let i = 0;
+
+        XML = '<?xml version="1.0" encoding="UTF-8"?><Reporte>'+XML;
+
+        while (XML.includes(`<${i}>`)) {
+            
+            XML = XML.replace(`<${i}>`, "<Mascota>");
+            XML = XML.replace(`</${i}>`, "</Mascota>");
+            i++;
+        }
+
+        XML = XML+"</Reporte>"
+
         res.header("Content-Type", "application/xml");
         res.status(200).send(resultXML);
     }
@@ -74,6 +87,18 @@ CustomersRouter.get('/report_all', async (req, res) => {
     let result = await CustomerClient.getReportAll();
 
     let XML = json2xml(JSON.stringify(result), { compact: true, spaces: 4 });
+    let i = 0;
+
+    XML = '<?xml version="1.0" encoding="UTF-8"?><Reporte>'+XML;
+
+    while (XML.includes(`<${i}>`)) {
+        
+        XML = XML.replace(`<${i}>`, "<Mascota>");
+        XML = XML.replace(`</${i}>`, "</Mascota>");
+        i++;
+    }
+
+    XML = XML+"</Reporte>"
 
     res.header("Content-Type", "application/xml");
     res.status(200).send(XML);
