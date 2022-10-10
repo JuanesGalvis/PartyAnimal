@@ -5,8 +5,8 @@ const MedicineMongoSchema = {
           title: "Clientes de la veterinaria",
           properties: {
              Id: {
-                bsonType: "int",
-                description: "'Id' must be a int and is required"
+                bsonType: "string",
+                description: "'Id' must be a string and is required"
              },
              Nombre: {
                 bsonType: "string",

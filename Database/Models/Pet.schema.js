@@ -7,8 +7,8 @@ const PetMongoSchema = {
           title: "Clientes de la veterinaria",
           properties: {
              Id: {
-                bsonType: "int",
-                description: "'Id' must be a int and is required"
+                bsonType: "string",
+                description: "'Id' must be a string and is required"
              },
              Nombre: {
                 bsonType: "string",
@@ -19,12 +19,12 @@ const PetMongoSchema = {
                 description: "'Raza' must be a string and is required"
              },
              Edad: {
-                bsonType: "int",
-                description: "'Edad' must be a int and is required"
+                bsonType: "string",
+                description: "'Edad' must be a string and is required"
              },
              Peso: {
-                bsonType: "int",
-                description: "'Peso' must be a int and is required"
+                bsonType: "string",
+                description: "'Peso' must be a string and is required"
              },
              Medicamentos: {
                 bsonType: "array",

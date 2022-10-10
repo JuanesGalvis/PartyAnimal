@@ -21,8 +21,8 @@ const CustomerMongoSchema = {
                 description: "'Direccion' must be a string and is required"
              },
              Telefono: {
-                bsonType: "int",
-                description: "'Telefono' must be a int and is required"
+                bsonType: "string",
+                description: "'Telefono' must be a string and is required"
              }
           }
        }

@@ -16,7 +16,7 @@ function ConvertExcelToJSON() {
     Medicamentos = Medicamentos.map((item) => {
         return {
             _id: ObjectId(),
-            "Id": item.A,
+            "Id": String(item.A),
             "Nombre": item.B,
             "Descripcion": item.C,
             "Dosis": item.D
@@ -30,18 +30,18 @@ function ConvertExcelToJSON() {
             "Nombres": item.B,
             "Apellidos": item.C,
             "Direccion": item.D,
-            "Telefono": item.E
+            "Telefono": String(item.E)
         }
     })
 
     Mascotas = Mascotas.map((item) => {
         return {
             _id: ObjectId(),
-            "Id": item.A,
+            "Id": String(item.A),
             "Nombre": item.B,
             "Raza": item.C,
-            "Edad": item.D,
-            "Peso": item.E,
+            "Edad": String(item.D),
+            "Peso": String(item.E),
             "Medicamentos": Medicamentos.filter((medicamento) => {
                 if (String(item.F).split(".").includes(String(medicamento.Id))) {
                     return medicamento;
