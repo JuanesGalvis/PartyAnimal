@@ -71,6 +71,13 @@ class Medicines extends MongoDB {
     });
   }
 
+  /** D - MEDICINE - PET */
+  async quitMedicine(IdPet, IdMedicine) {
+    return this.connect().then((db) => {
+      return db.collection('Mascotas').updateOne({_id: ObjectId(IdPet)}, { $pull: { 'Medicamentos': ObjectId(IdMedicine) }});
+    });
+  }
+
 }
 
 module.exports = Medicines;

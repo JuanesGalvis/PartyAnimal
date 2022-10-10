@@ -42,12 +42,21 @@ MedicinesRouter.put('/medicine/:id', async (req, res, next) => {
     next();
 })
 
-/** DELETE CLIENT */
+/** DELETE MEDICINE */
 MedicinesRouter.delete('/medicine/:id', async (req, res, next) => {
 
     let result = await MedicinesClient.deletePet(req.params.id);
     req.result = result;
     req.message = "MEDICINA ELIMINADA EXITOSAMENTE"
+    next();
+})
+
+/** QUIT MEDICINE - PET */
+MedicinesRouter.put('/medicines/:idPet/:idMedicine', async (req, res, next) => {
+
+    let result = await MedicinesClient.quitMedicine(req.params.idPet, req.params.idMedicine);
+    req.result = result;
+    req.message = "MEDICINA QUITADA EXITOSAMENTE"
     next();
 })
 
