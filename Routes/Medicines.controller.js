@@ -5,12 +5,22 @@ const Client = require('../Database/Medicines');
 const MedicinesClient = new Client();
 
 /** CREATE MEDICINE */
-MedicinesRouter.post('/new_medicine', async (req, res, next ) => {
+MedicinesRouter.post('/new_medicine', async (req, res, next) => {
 
     // let result = await MedicinesClient;
     // req.result = result;
     // req.message = "INFO DE TODOS LOS USUARIOS"
     // next();
+})
+
+/** READ ALL MEDICINES IN GENERAL */
+MedicinesRouter.get('/medicines', async (req, res, next) => {
+
+    let result = await MedicinesClient.getAllMedicines()
+
+    req.result = result;
+    req.message = "INFO DE TODOS LOS MEDICAMENTOS EN GENERAL"
+    next();
 })
 
 /** READ ALL MEDICINES */
@@ -24,7 +34,7 @@ MedicinesRouter.get('/medicines/:idPet', async (req, res, next) => {
 })
 
 /** READ ONE MEDICINE */
-MedicinesRouter.get('/medicines/:idPet/:idMedicine', async (req, res, next ) => {
+MedicinesRouter.get('/medicines/:idPet/:idMedicine', async (req, res, next) => {
 
     // let result = await MedicinesClient;
     // req.result = result;
@@ -33,7 +43,7 @@ MedicinesRouter.get('/medicines/:idPet/:idMedicine', async (req, res, next ) => 
 })
 
 /** UPDATE MEDICINE */
-MedicinesRouter.put('/medicine/:id', async (req, res, next ) => {
+MedicinesRouter.put('/medicine/:id', async (req, res, next) => {
 
     // let result = await MedicinesClient;
     // req.result = result;
@@ -42,7 +52,7 @@ MedicinesRouter.put('/medicine/:id', async (req, res, next ) => {
 })
 
 /** DELETE CLIENT */
-MedicinesRouter.delete('/medicine/:id', async (req, res, next ) => {
+MedicinesRouter.delete('/medicine/:id', async (req, res, next) => {
 
     // let result = await MedicinesClient;
     // req.result = result;
