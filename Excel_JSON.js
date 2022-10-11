@@ -1,11 +1,14 @@
 const excelToJson = require('convert-excel-to-json');
-const fs = require('fs');
+const { readFileSync } = require('fs');
+const path = require('path');
 const { ObjectId } = require('mongodb');
  
 function ConvertExcelToJSON() {
     
+    let file = path.join(process.cwd(), 'DataOriginal.xlsx');
+
     const result = excelToJson({
-        source: fs.readFileSync('DataOriginal.xlsx'),
+        source: readFileSync(file),
         header: {
             rows: 1
         }
