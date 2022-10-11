@@ -8,7 +8,7 @@ const Client = require('../Database/Client');
 const CustomerClient = new Client();
 
 /** CREATE CLIENT */
-CustomersRouter.post('/new_customer', async (req, res, next ) => {
+CustomersRouter.post('/new_customer', async (req, res, next) => {
 
     let result = await CustomerClient.createClient(req.body);
     req.result = result;
@@ -17,7 +17,7 @@ CustomersRouter.post('/new_customer', async (req, res, next ) => {
 })
 
 /** READ ALL CLIENTS */
-CustomersRouter.get('/customers', async (req, res, next ) => {
+CustomersRouter.get('/customers', async (req, res, next) => {
 
     let result = await CustomerClient.getAllClients();
     req.result = result;
@@ -26,7 +26,7 @@ CustomersRouter.get('/customers', async (req, res, next ) => {
 })
 
 /** READ ONE CLIENT */
-CustomersRouter.get('/customer/:id', async (req, res, next ) => {
+CustomersRouter.get('/customer/:id', async (req, res, next) => {
 
     let result = await CustomerClient.getOneClient(req.params.id);
     req.result = result;
@@ -35,7 +35,7 @@ CustomersRouter.get('/customer/:id', async (req, res, next ) => {
 })
 
 /** UPDATE CLIENT */
-CustomersRouter.put('/customer/:id', async (req, res, next ) => {
+CustomersRouter.put('/customer/:id', async (req, res, next) => {
 
     let result = await CustomerClient.updateClient(req.params.id, req.body)
     req.result = result;
@@ -44,7 +44,7 @@ CustomersRouter.put('/customer/:id', async (req, res, next ) => {
 })
 
 /** DELETE CLIENT */
-CustomersRouter.delete('/customer/:id', async (req, res, next ) => {
+CustomersRouter.delete('/customer/:id', async (req, res, next) => {
 
     let result = await CustomerClient.deleteClient(req.params.id);
     req.result = result;
@@ -55,7 +55,7 @@ CustomersRouter.delete('/customer/:id', async (req, res, next ) => {
 /** REPORT - XML */
 
 CustomersRouter.get('/report/:idClient', async (req, res) => {
-    
+
     let resultJSON = await CustomerClient.getReportClient(req.params.idClient);
 
     if (resultJSON == undefined) {
@@ -64,19 +64,19 @@ CustomersRouter.get('/report/:idClient', async (req, res) => {
         });
     } else {
         let XML = json2xml(JSON.stringify(resultJSON), { compact: true, spaces: 4 });
-    
+
         let i = 0;
 
-        XML = '<?xml version="1.0" encoding="UTF-8"?><Reporte>'+XML;
+        XML = '<?xml version="1.0" encoding="UTF-8"?><Reporte>' + XML;
 
         while (XML.includes(`<${i}>`)) {
-            
+
             XML = XML.replace(`<${i}>`, "<Mascota>");
             XML = XML.replace(`</${i}>`, "</Mascota>");
             i++;
         }
 
-        XML = XML+"</Reporte>"
+        XML = XML + "</Reporte>"
 
         let HTML = await GenerateHTML(XML, 'Client');
         res.status(200).send(String(HTML));
@@ -90,16 +90,16 @@ CustomersRouter.get('/report_all', async (req, res) => {
     let XML = json2xml(JSON.stringify(result), { compact: true, spaces: 4 });
     let i = 0;
 
-    XML = '<?xml version="1.0" encoding="UTF-8"?><Reporte>'+XML;
+    XML = '<?xml version="1.0" encoding="UTF-8"?><Reporte>' + XML;
 
     while (XML.includes(`<${i}>`)) {
-        
+
         XML = XML.replace(`<${i}>`, "<Mascota>");
         XML = XML.replace(`</${i}>`, "</Mascota>");
         i++;
     }
 
-    XML = XML+"</Reporte>"
+    XML = XML + "</Reporte>"
 
     let HTML = await GenerateHTML(XML, 'General');
     res.status(200).send(String(HTML));

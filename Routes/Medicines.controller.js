@@ -33,6 +33,15 @@ MedicinesRouter.get('/medicines/:idPet', async (req, res, next) => {
     next();
 })
 
+/** READ ONE MEDICINE */
+CustomersRouter.get('/medicine/:id', async (req, res, next) => {
+
+    let result = await MedicinesClient.getOneMedicine(req.params.id);
+    req.result = result;
+    req.message = "INFO DE UNA MEDICINA EN ESPECIFICO"
+    next();
+})
+
 /** UPDATE MEDICINE */
 MedicinesRouter.put('/medicine/:id', async (req, res, next) => {
 

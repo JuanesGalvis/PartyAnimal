@@ -53,7 +53,7 @@ class Medicines extends MongoDB {
   async updateMedicine(Id, data) {
 
     return this.connect().then((db) => {
-      return db.collection('Medicamentos').updateOne({_id: ObjectId(Id)}, {$set: {...data}});
+      return db.collection('Medicamentos').updateOne({ _id: ObjectId(Id) }, { $set: { ...data } });
     });
   }
 
@@ -71,10 +71,10 @@ class Medicines extends MongoDB {
 
       let PetsWithMedicine = await db.collection('Mascotas').aggregate(pipeline).toArray();
       PetsWithMedicine.forEach(async (item) => {
-        await db.collection('Mascotas').updateOne({_id: ObjectId(item._id)}, { $pull: { 'Medicamentos': ObjectId(Id) }});
+        await db.collection('Mascotas').updateOne({ _id: ObjectId(item._id) }, { $pull: { 'Medicamentos': ObjectId(Id) } });
       })
 
-      return db.collection('Medicamentos').deleteOne({_id: ObjectId(Id)});
+      return db.collection('Medicamentos').deleteOne({ _id: ObjectId(Id) });
     });
   }
 
@@ -85,10 +85,17 @@ class Medicines extends MongoDB {
     });
   }
 
+  /** R - ONE MEDICINE */
+  async getOneMedicine(Id) {
+    return this.connect().then((db) => {
+      return db.collection('Medicamentos').findOne({ _id: ObjectId(Id) });
+    });
+  }
+
   /** D - MEDICINE - PET */
   async quitMedicine(IdPet, IdMedicine) {
     return this.connect().then((db) => {
-      return db.collection('Mascotas').updateOne({_id: ObjectId(IdPet)}, { $pull: { 'Medicamentos': ObjectId(IdMedicine) }});
+      return db.collection('Mascotas').updateOne({ _id: ObjectId(IdPet) }, { $pull: { 'Medicamentos': ObjectId(IdMedicine) } });
     });
   }
 
