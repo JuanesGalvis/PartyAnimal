@@ -64,17 +64,18 @@ class MongoDB {
         await db.dropCollection(collection);
       }
 
-      switch (collection) {
-        case "Clientes":
-          await db.createCollection(collection, CustomerMongoSchema);
-          break;
-        case "Mascotas":
-          await db.createCollection(collection, PetMongoSchema);
-          break;
-        case "Medicamentos":
-          await db.createCollection(collection, MedicineMongoSchema);
-          break;
-      }
+      // switch (collection) {
+      //   case "Clientes":
+      //     await db.createCollection(collection, CustomerMongoSchema);
+      //     break;
+      //   case "Mascotas":
+      //     await db.createCollection(collection, PetMongoSchema);
+      //     break;
+      //   case "Medicamentos":
+      //     await db.createCollection(collection, MedicineMongoSchema);
+      //     break;
+      // }
+      
       return db.collection(collection).insertMany([...data]);
 
     });

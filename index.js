@@ -4,7 +4,9 @@ const App = express();
 
 // CORS
 const CORS = require('cors');
-App.use(CORS());
+App.use(CORS({
+    origin: 'https://party-animal.vercel.app'
+}));
 
 // Variables de entorno
 require('dotenv').config();
