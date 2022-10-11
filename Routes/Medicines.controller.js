@@ -34,7 +34,7 @@ MedicinesRouter.get('/medicines/:idPet', async (req, res, next) => {
 })
 
 /** READ ONE MEDICINE */
-CustomersRouter.get('/medicine/:id', async (req, res, next) => {
+MedicinesRouter.get('/medicine/:id', async (req, res, next) => {
 
     let result = await MedicinesClient.getOneMedicine(req.params.id);
     req.result = result;
