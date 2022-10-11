@@ -1,10 +1,11 @@
 const excelToJson = require('convert-excel-to-json');
+const fs = require('fs');
 const { ObjectId } = require('mongodb');
  
 function ConvertExcelToJSON() {
     
     const result = excelToJson({
-        sourceFile: './DataOriginal.xlsx',
+        source: fs.readFileSync('DataOriginal.xlsx'),
         header: {
             rows: 1
         }

@@ -25,7 +25,7 @@ App.get('/', CORS(), (req, res) => {
     res.send("🐶 PARTY ANIMAL 😺");
 })
 
-App.use(require('./Routes/Admin.controller'));
+App.use(CORS(), require('./Routes/Admin.controller'));
 App.use(CORS(optionsRoutesCORS), require('./Routes/Customers.controller'));
 App.use(CORS(optionsRoutesCORS), require('./Routes/Pets.controller'));
 App.use(CORS(optionsRoutesCORS), require('./Routes/Medicines.controller'));
