@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "buildXSL": "xslt3 -xsl:Lib/Report.xsl -export:report.sef.jso -nogo"
   },
   "author": "Juan Galvis - Miguel Bedoya",
   "license": "MIT",

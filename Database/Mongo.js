@@ -36,21 +36,6 @@ class MongoDB {
     return this.connection;
   }
 
-  /** METODOS */
-
-  async CreateCollections () {
-    
-    return this.connect().then((db) => {
-
-      
-
-      
-      db.createCollection("Mascotas", PetMongoSchema);
-      db.createCollection("Medicamentos", MedicineMongoSchema);
-      
-    });
-  }
-
   /** BACKUP - EXCEL */
   async dataExcel(data, collection) {
     return this.connect().then(async (db) => {
