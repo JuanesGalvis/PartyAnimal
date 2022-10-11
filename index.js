@@ -4,14 +4,15 @@ const App = express();
 
 // CORS
 const CORS = require('cors');
-App.use(CORS({
-    origin: function (origin, callback) {
-        if (origin === "https://party-animal.vercel.app") {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }}
-}));
+
+let optionsRoutesCORS = {
+  origin: function (origin, callback) {
+      if (origin === "https://party-animal.vercel.app") {
+        callback(null, true)
+      } else {
+        callback("ERROR DE CORS - NO VIENES DEL ORIGEN PERMITIDO")
+      }}
+};
 
 // Variables de entorno
 require('dotenv').config();
@@ -20,14 +21,14 @@ require('dotenv').config();
 App.use(express.json());
 
 // Ruta inicial o de bienvenida
-App.get('/', (req, res) => {
+App.get('/', CORS(), (req, res) => {
     res.send("🐶 PARTY ANIMAL 😺");
 })
 
-App.use(require('./Routes/Admin.controller'));
-App.use(require('./Routes/Customers.controller'));
-App.use(require('./Routes/Pets.controller'));
-App.use(require('./Routes/Medicines.controller'));
+App.use(CORS(), require('./Routes/Admin.controller'));
+App.use(CORS(optionsRoutesCORS), require('./Routes/Customers.controller'));
+App.use(CORS(optionsRoutesCORS), require('./Routes/Pets.controller'));
+App.use(CORS(optionsRoutesCORS), require('./Routes/Medicines.controller'));
 App.use(require('./Middleware/Response'))
 
 // Puerto a escuchar
