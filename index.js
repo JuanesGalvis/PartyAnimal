@@ -5,7 +5,12 @@ const App = express();
 // CORS
 const CORS = require('cors');
 App.use(CORS({
-    origin: 'https://party-animal.vercel.app'
+    origin: function (origin, callback) {
+        if (origin === "https://party-animal.vercel.app") {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }}
 }));
 
 // Variables de entorno

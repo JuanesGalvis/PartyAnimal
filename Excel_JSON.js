@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 function ConvertExcelToJSON() {
     
     const result = excelToJson({
-        sourceFile: './Data/DataOriginal.xlsx',
+        sourceFile: './DataOriginal.xlsx',
         header: {
             rows: 1
         }
